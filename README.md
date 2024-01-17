@@ -1,0 +1,1 @@
+Requires decompressed https://alphacephei.com/vosk/models/vosk-model-small-sv-rhasspy-0.15.zip and https://alphacephei.com/vosk/models/vosk-model-en-us-0.22.zip in ./resources/speech_to_text_models/
