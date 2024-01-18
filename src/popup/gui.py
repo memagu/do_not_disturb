@@ -81,7 +81,6 @@ class GUIThread(Thread):
             case Operation.CREATE_POPUP:
                 self.create_unclosable_popup(*args, **kwargs)
             case Operation.DESTROY_POPUP:
-                print("DESTROY received")
                 self.destroy_popup()
             case _:
                 raise Exception("An unknown message was sent in the message queue")
