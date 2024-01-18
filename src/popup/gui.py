@@ -28,6 +28,7 @@ class Popup(tk.Toplevel):
         super().__init__(master, *args, **kwargs)
 
         self.geometry(f"{width}x{height}+{x}+{y}")
+        self.protocol("WM_DELETE_WINDOW", lambda: None)
 
         label = tk.Label(
             self,
