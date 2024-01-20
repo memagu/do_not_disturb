@@ -1,4 +1,5 @@
 from pathlib import Path
+import sys
 
 import pyaudio
 from thefuzz import fuzz
@@ -13,7 +14,12 @@ CHANNELS = 1
 FORMAT = pyaudio.paInt16
 CHUNK_SIZE = 8000
 
-SPEECH_RECOGNITION_MODEL_PATH = Path("./resources/speech_to_text_models/vosk-model-small-sv-rhasspy-0.15/")
+try:
+    BASE_PATH = Path(sys._MEIPASS)
+except AttributeError:
+    BASE_PATH = Path.cwd()
+
+SPEECH_RECOGNITION_MODEL_PATH = BASE_PATH / "resources/speech_to_text_models/vosk-model-small-sv-rhasspy-0.15/"
 
 POPUP_TEXT = "Du är för högljudd! Var snäll be om ursäkt. \"Förlåt, jag ska vara tystare\" godtas."
 PASSPHRASE = "förlåt jag ska vara tystare"
@@ -38,7 +44,7 @@ def main() -> None:
 
             dbfs = bytes_to_dbfs(data)
             noise_level = NoiseLevel.from_dbfs(dbfs)
-            print(noise_level)
+            print(f"{noise_level} | DbFS: {dbfs}")
             if noise_level == NoiseLevel.SCREAMING:
                 print("Scream detected, creating popup.")
                 popup_manager.create_unclosable(POPUP_TEXT)
